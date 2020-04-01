@@ -1,0 +1,8 @@
+runtime: python
+env: flex
+env_variables: 
+ NLTK_DATA: './nltk_data'
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:  
+    python_version: 3

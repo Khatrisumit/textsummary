@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Text Summarization</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/stylesheet.css') }}">
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="{{url_for('static',filename='scripts/main.js')}}"></script>
+        
+    </head>
+    <body>
+        <section id="wrapper">
+            <header>
+                <div class="container-fluid">
+                    <div class="row">
+                        <aside class="col-md-3">
+                            <h1 class="title">
+                                <img src="{{url_for('static', filename='images/logo.png')}}" style="width: 200px"/>
+                            </h1>
+                        </aside>
+                    </div><!-- .row -->
+                </div><!-- .container-fluid -->
+            </header>
+            <section id="banner">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h4 class="col-md-12 title text-center page-header">POC - Text Summarization</h4>
+                        <aside class="col-md-4">
+                            <form class="col-md-12" method="POST">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="input-text" rows=15 name="text" placeholder="Enter Raw Text" required></textarea>
+                                </div>
+                                <input type="submit" class="btn btn-primary" value="Get Summary" />
+                            </form>
+                        </aside>
+                        {% if data %}
+                        <aside class="col-md-8">
+                            <div class="card card-sm" id="input-card">
+                                <h4 class="col-md-12 card-header title text-center">Original Text</h4>
+                                <div class="card-body">
+                                    <p class="col-md-12 read-time">{{data.original_time}}</p>
+                                    <p>{{data.input}}</p>
+                                </div>
+                            </div>
+                        </aside>
+                        {% endif %}
+                    </div><!-- .row -->
+                </div><!-- .container-fluid -->
+            </section><!-- #banner -->
+            <section id="main-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        {% if data %}
+                        <aside class="col-md-4" id="spacy-wrapper">
+                            <h5 class="title">Spacy Summary<span class="read-time float-right">{{data.spacy.time}}</span></h5>
+                            <div class="col-md-12">{{data.spacy.summary}}</div>
+                        </aside>
+                        <aside class="col-md-4" id="gensim-wrapper">
+                            <h5 class="title">Gensim Summary<span class="read-time float-right">{{data.gensim.time}}</span></h5>
+                            <div class="col-md-12">{{data.gensim.summary}}</div>
+                        </aside>
+                        <aside class="col-md-4" id="nltk-wrapper">
+                            <h5 class="title">NLTK Summry<span class="read-time float-right">{{data.nltk.time}}</span></h5>
+                            <div class="col-md-12">{{data.nltk.summary}}</div>
+                        </aside>
+                        {% elif message %}
+                            <div class="modal" tabindex="-1" role="dialog" id="message-modal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Alert</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{{ message }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                jQuery('#message-modal').modal('show');
+                            </script>
+                        {% endif %}
+                    </div><!-- .row -->
+                </div><!-- .container-fluid -->
+            </section><!-- #main-body -->
+        </section>
+    </body>
+</html>

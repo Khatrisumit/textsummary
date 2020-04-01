@@ -1,0 +1,30 @@
+#banner {
+    background: url('../images/banner.png');
+    min-height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.title {
+    padding: 10px;
+    margin: 15px auto;
+    width: 100%;
+}
+.card-header {
+    color: #1D817E;
+}
+.page-header {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+#input-card .card-body {
+    max-height: 297px;
+    overflow-y: scroll;
+}
+.read-time {
+    text-shadow: 1px 1px #0e6d6a;
+    color: #1D817E;
+}
+#main-body .title {
+    border-bottom: 2px solid #1D817E;
+}
